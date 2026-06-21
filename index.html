@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roadmaps · Tweakeo</title>
+  <meta name="description" content="Panel de roadmaps de proyectos de Tweakeo. Selecciona un proyecto para ver su hoja de ruta." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23D72638'/%3E%3Ctext x='50' y='72' font-size='62' text-anchor='middle' fill='%23F4ECD8' font-family='Arial Black,sans-serif'%3E%E2%98%85%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&family=Archivo+Black&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --red:#D72638; --red-deep:#A81812; --red-hot:#FF2E22;
+      --pink:#F0DADA; --yellow:#F2B705; --paper:#F4ECD8;
+      --ink:#15110E; --ink-2:#1E1813; --ink-3:#2A211A;
+      --line:rgba(244,236,216,.14); --line-strong:rgba(244,236,216,.30);
+      --muted:#A99C88; --ok:#5BD66B;
+      --font-display:"Anton",sans-serif; --font-black:"Archivo Black",sans-serif; --font-body:"Archivo",sans-serif;
+      --shadow:0 18px 40px -18px rgba(0,0,0,.8);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:var(--font-body);
+      background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(215,38,56,.18), transparent 60%),
+        radial-gradient(900px 500px at -10% 110%, rgba(242,183,5,.10), transparent 55%),
+        var(--ink);
+      color:var(--paper); min-height:100vh; overflow-x:hidden;
+      display:flex; flex-direction:column;
+    }
+    .grain{position:fixed;inset:0;width:100%;height:100%;opacity:.05;pointer-events:none;z-index:9999;mix-blend-mode:overlay}
+    .topbar{
+      display:flex;align-items:center;justify-content:space-between;gap:1rem;
+      padding:.95rem clamp(1rem,4vw,2.6rem);
+      background:linear-gradient(180deg, rgba(21,17,14,.96), rgba(21,17,14,.82));
+      border-bottom:2px solid var(--line-strong);
+    }
+    .brand{display:flex;align-items:center;gap:.85rem}
+    .brand-mark{
+      font-size:1.7rem;color:var(--ink);background:var(--yellow);
+      width:2.4rem;height:2.4rem;display:grid;place-items:center;border-radius:6px;
+      box-shadow:0 0 0 3px var(--ink),0 0 0 5px var(--yellow);transform:rotate(-6deg);
+    }
+    .brand-text h1{
+      font-family:var(--font-display);font-weight:400;letter-spacing:.04em;
+      font-size:clamp(1.15rem,2.6vw,1.7rem);line-height:.95;text-transform:uppercase;
+    }
+    .brand-text h1 em{color:var(--red-hot);font-style:normal;text-shadow:2px 2px 0 var(--ink)}
+    .brand-text p{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:.15rem}
+    .clock{font-family:var(--font-display);font-size:1rem;color:var(--yellow);letter-spacing:.08em}
+    main{flex:1;padding:clamp(1.6rem,4vw,3rem) clamp(1rem,4vw,2.6rem);max-width:1100px;width:100%;margin:0 auto}
+    .hero{margin-bottom:clamp(1.6rem,4vw,2.6rem)}
+    .hero h2{
+      font-family:var(--font-display);font-weight:400;text-transform:uppercase;letter-spacing:.03em;
+      font-size:clamp(1.8rem,5vw,3rem);line-height:.96;
+    }
+    .hero h2 span{color:var(--red-hot);text-shadow:2px 2px 0 var(--ink)}
+    .hero p{margin-top:.7rem;max-width:46ch;color:var(--muted);font-size:.95rem;line-height:1.5}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:clamp(1rem,2.5vw,1.6rem)}
+    .card{
+      position:relative;display:flex;flex-direction:column;gap:.9rem;
+      text-decoration:none;color:inherit;
+      background:linear-gradient(180deg,var(--ink-3),var(--ink-2));
+      border:1.5px solid var(--line-strong);border-radius:12px;
+      padding:1.4rem 1.4rem 1.25rem;box-shadow:var(--shadow);
+      transition:transform .12s ease, box-shadow .12s ease, border-color .2s;
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";position:absolute;inset:0;pointer-events:none;
+      background:repeating-linear-gradient(90deg,transparent,transparent 79px,var(--line) 79px,var(--line) 80px);
+      opacity:.5;
+    }
+    .card.live:hover{transform:translateY(-4px);border-color:var(--red);box-shadow:0 22px 46px -18px rgba(215,38,56,.5)}
+    .card.live:active{transform:translateY(-1px)}
+    .card-top{display:flex;align-items:center;justify-content:space-between;gap:.6rem;position:relative;z-index:1}
+    .badge{
+      font-family:var(--font-body);font-weight:800;letter-spacing:.12em;font-size:.62rem;text-transform:uppercase;
+      padding:.3rem .55rem;border-radius:4px;
+    }
+    .badge.on{background:var(--ok);color:var(--ink)}
+    .badge.soon{background:transparent;color:var(--muted);border:1px solid var(--line-strong)}
+    .card-emoji{font-size:1.9rem;line-height:1;filter:drop-shadow(0 2px 0 rgba(0,0,0,.5))}
+    .card h3{
+      font-family:var(--font-display);font-weight:400;text-transform:uppercase;letter-spacing:.03em;
+      font-size:clamp(1.3rem,3vw,1.7rem);line-height:1;position:relative;z-index:1;
+    }
+    .card p{color:var(--muted);font-size:.86rem;line-height:1.45;position:relative;z-index:1}
+    .card-cta{
+      margin-top:auto;display:inline-flex;align-items:center;gap:.5rem;position:relative;z-index:1;
+      font-weight:800;letter-spacing:.1em;font-size:.78rem;text-transform:uppercase;color:var(--paper);
+    }
+    .card-cta .arrow{
+      display:inline-grid;place-items:center;width:1.5rem;height:1.5rem;border-radius:4px;
+      background:var(--red);box-shadow:0 3px 0 var(--red-deep);transition:transform .12s, background .2s;
+    }
+    .card.live:hover .card-cta .arrow{background:var(--red-hot);transform:translateX(3px)}
+    .card.soon{opacity:.62;cursor:default}
+    .card.soon .card-cta{color:var(--muted)}
+    .card.soon .card-cta .arrow{background:var(--ink-3);box-shadow:none;border:1px solid var(--line-strong)}
+    .foot{
+      display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+      padding:1rem clamp(1rem,4vw,2.6rem);border-top:1.5px solid var(--line);
+      font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <svg class="grain" xmlns="http://www.w3.org/2000/svg">
+    <filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter>
+    <rect width="100%" height="100%" filter="url(#noise)"/>
+  </svg>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">&#9733;</span>
+      <div class="brand-text">
+        <h1>TWEAKEO <em>ROADMAPS</em></h1>
+        <p>Panel de hojas de ruta</p>
+      </div>
+    </div>
+    <span class="clock" id="clock">&mdash;</span>
+  </header>
+  <main>
+    <section class="hero">
+      <h2>Selecciona un <span>proyecto</span></h2>
+      <p>Cada proyecto tiene su propia hoja de ruta visual. Elige uno para ver su timeline, checkpoints y diario de desarrollo.</p>
+    </section>
+    <section class="grid">
+      <a class="card live" href="/hosteleria/">
+        <div class="card-top">
+          <span class="card-emoji">&#127828;</span>
+          <span class="badge on">Activo</span>
+        </div>
+        <h3>Hosteler&iacute;a</h3>
+        <p>Chamber&iacute; Brothers / Paletos &middot; proyectos de mejora, timeline-scatter por fecha objetivo y diario de desarrollo.</p>
+        <span class="card-cta">Ver roadmap <span class="arrow">&rarr;</span></span>
+      </a>
+      <div class="card soon" aria-disabled="true">
+        <div class="card-top">
+          <span class="card-emoji">&#128200;</span>
+          <span class="badge soon">Pr&oacute;ximamente</span>
+        </div>
+        <h3>Invertir a largo plazo</h3>
+        <p>Hoja de ruta de invertiralargoplazo.com &middot; automatizaciones, contenidos y SEO. En preparaci&oacute;n.</p>
+        <span class="card-cta">Pronto <span class="arrow">&rarr;</span></span>
+      </div>
+    </section>
+  </main>
+  <footer class="foot">
+    <span>Tweakeo &middot; Madriz est. 2025</span>
+    <span>Smash&hellip; or nah?</span>
+  </footer>
+  <script>
+    const clock = document.getElementById('clock');
+    function tick(){
+      const d = new Date();
+      clock.textContent = d.toLocaleDateString('es-ES',{day:'2-digit',month:'short'}).toUpperCase()
+        + ' · ' + d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+    }
+    tick(); setInterval(tick, 30000);
+  </script>
+</body>
+</html>
