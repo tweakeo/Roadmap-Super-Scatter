@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roadmap · Super Scatter — Chamberí Brothers</title>
+  <meta name="description" content="Dashboard visual de proyectos de mejora · Paletos / Chamberí Brothers" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23D72638'/%3E%3Ctext x='50' y='72' font-size='62' text-anchor='middle' fill='%23F4ECD8' font-family='Arial Black,sans-serif'%3E%E2%98%85%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&family=Archivo+Black&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <!-- grain overlay -->
+  <svg class="grain" xmlns="http://www.w3.org/2000/svg">
+    <filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter>
+    <rect width="100%" height="100%" filter="url(#noise)"/>
+  </svg>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">★</span>
+      <div class="brand-text">
+        <h1>ROADMAP <em>SUPER SCATTER</em></h1>
+        <p>Proyectos de mejora · Chamberí Brothers</p>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <span class="clock" id="clock">—</span>
+      <button class="btn-refresh" id="btnRefresh" title="Actualizar datos">
+        <span class="dot"></span> ACTUALIZAR
+      </button>
+    </div>
+  </header>
+
+  <div id="dataAlert" class="data-alert" hidden></div>
+
+  <main>
+    <!-- HERO: timeline scatter -->
+    <section class="scatter-section">
+      <div class="section-head">
+        <h2>LÍNEA TEMPORAL <span>por fecha objetivo</span></h2>
+        <div class="legend" id="legend"></div>
+      </div>
+      <div class="scatter-wrap" id="scatterWrap">
+        <div class="scatter" id="scatter"><!-- JS --></div>
+      </div>
+    </section>
+
+    <!-- Proyectos sin fecha -->
+    <section class="nodate-section" id="noDateSection" hidden>
+      <div class="section-head">
+        <h2>PROYECTOS SIN FECHA <span>fuera del timeline</span></h2>
+      </div>
+      <div class="card-grid" id="noDateGrid"><!-- JS --></div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>Smash… or nah? · Madriz est. 2025</span>
+    <span id="footMeta"></span>
+  </footer>
+
+  <!-- DETAIL MODAL -->
+  <div class="modal" id="modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <article class="modal-card" id="modalCard" role="dialog" aria-modal="true"><!-- JS --></article>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

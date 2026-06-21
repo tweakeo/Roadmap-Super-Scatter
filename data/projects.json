@@ -1,0 +1,275 @@
+{
+  "meta": {
+    "fuente": "SEED (datos de ejemplo basados en Notion · se sustituirá por el proxy/Notion)",
+    "generado": "2026-06-21",
+    "tareasSinProyecto": 31,
+    "ventana": { "desde": "2026-06-01", "hasta": "2026-09-15" }
+  },
+  "proyectos": [
+    {
+      "id": "smash-slots",
+      "nombre": "Paletos Arcade → Smash Slots",
+      "emoji": "🕹️",
+      "estado": "En desarrollo",
+      "responsables": ["León"],
+      "fechaObjetivo": "2026-07-15",
+      "objetivo": "Crear el primer juego arcade físico de Paletos (\"Smash Slots\"): una tragaperras con mecánica de reacción \"¡SMASH!\" jugable en el local sobre un mini-PC con botón arcade.",
+      "resultadosEsperados": "Prototipo jugable end-to-end, con economía de premios configurable y validado por el equipo (GO/NO-GO) antes de invertir en hardware definitivo.",
+      "checkpoints": [
+        { "titulo": "Core del juego (máquina de estados + rodillos + reacción)", "hecho": true },
+        { "titulo": "Economía configurable (tabla de premios y probabilidades)", "hecho": true },
+        { "titulo": "GDD v0 y feedback audiovisual completo", "hecho": false },
+        { "titulo": "Spike de hardware (mini-PC/RPi + botón arcade)", "hecho": false },
+        { "titulo": "Playtest con el equipo y decisión GO/NO-GO", "hecho": false }
+      ],
+      "tareas": [
+        { "titulo": "Rodillos placeholder — giro y parada secuencial con easing", "hecho": true },
+        { "titulo": "Máquina de estados de partida (ready → spin → reacción → resultado)", "hecho": true },
+        { "titulo": "Mecánica de reacción — señal «¡SMASH!», ventana configurable y mejora de premio", "hecho": true },
+        { "titulo": "Modo attract y feedback básico (parpadeo, shake, sonido placeholder)", "hecho": true },
+        { "titulo": "Tabla de premios y probabilidades configurable (JSON) + primer balance", "hecho": true },
+        { "titulo": "GDD corto v0 — tirada, efecto del «smash» y premios con probabilidades", "hecho": false },
+        { "titulo": "Spike de hardware — prototipo en mini-PC/RPi con botón arcade USB", "hecho": false },
+        { "titulo": "Playtest de viabilidad con el equipo y decisión GO/NO-GO", "hecho": false }
+      ],
+      "recursos": {
+        "tecnologico": ["HTML5 Canvas", "JavaScript", "JSON config", "Mini-PC / Raspberry Pi", "Botón arcade USB"],
+        "skills": [
+          { "skill": "frontend-design", "porque": "Estética arcade y feedback audiovisual del juego." },
+          { "skill": "playwright-mcp-automation", "porque": "Automatizar playtests y captura de estados de partida." }
+        ]
+      },
+      "diario": [
+        { "fecha": "2026-06-12", "bullets": ["Tabla de premios trasladada a Notion como fuente de verdad editable.", "Primer balance de probabilidades efectivas."] },
+        { "fecha": "2026-06-10", "bullets": ["Máquina de estados y mecánica de reacción «¡SMASH!» funcionando.", "Modo attract con feedback básico."] }
+      ]
+    },
+    {
+      "id": "cheesecake-brothers",
+      "nombre": "Lanzamiento 2.0 → Cheesecake Brothers",
+      "emoji": "🥮",
+      "estado": "En desarrollo",
+      "responsables": ["Manu"],
+      "fechaObjetivo": "2026-06-30",
+      "objetivo": "Lanzar Cheesecake Brothers como marca propia de tartas: laboratorio, branding, web/e-commerce y canal B2B.",
+      "resultadosEsperados": "Marca lista para vender online y a hostelería, con primeras producciones y pedidos piloto B2B cerrados.",
+      "checkpoints": [
+        { "titulo": "Laboratorio de tartas operativo (recetas, fichas, costes)", "hecho": false },
+        { "titulo": "Branding y fotografía de producto cerrados", "hecho": false },
+        { "titulo": "Web + e-commerce con envío refrigerado", "hecho": false },
+        { "titulo": "Canal B2B: pricing, one-pager y 3 pedidos piloto", "hecho": false },
+        { "titulo": "Lanzamiento en redes y primera producción masiva", "hecho": false }
+      ],
+      "tareas": [
+        { "titulo": "Laboratorio de tartas: ordenar menú completo en Notion (recetas, fichas técnicas, costes)", "hecho": false },
+        { "titulo": "Diseño de marca y branding", "hecho": false },
+        { "titulo": "Fotografías e ingeniería de menú", "hecho": false },
+        { "titulo": "Búsqueda y cierre de proveedores de botes e ingredientes", "hecho": false },
+        { "titulo": "Crear web y landing page de Cheesecake Brothers", "hecho": false },
+        { "titulo": "Desarrollar e-commerce: catálogo, carrito, checkout y Stripe", "hecho": false },
+        { "titulo": "Investigar operadores de envío refrigerado y definir packs online", "hecho": false },
+        { "titulo": "Definir pricing hostelero y crear one-pager comercial (PDF)", "hecho": false },
+        { "titulo": "Mapear 30-50 restaurantes objetivo en Madrid y prospectar", "hecho": false },
+        { "titulo": "Prospectar empresas/oficinas y conseguir 3 pedidos piloto B2B", "hecho": false },
+        { "titulo": "Lanzar redes sociales: Instagram + TikTok + plan de contenido", "hecho": false }
+      ],
+      "recursos": {
+        "tecnologico": ["Web/Landing", "Stripe", "WhatsApp Business", "Google Site Kit (GA/GTM/Search Console)"],
+        "skills": [
+          { "skill": "frontend-design", "porque": "Web y landing de la marca con identidad propia." },
+          { "skill": "ghl-api", "porque": "Automatizar captación B2B y CRM de pedidos." }
+        ]
+      },
+      "diario": []
+    },
+    {
+      "id": "horario-semanal",
+      "nombre": "Horario Semanal",
+      "emoji": "📅",
+      "estado": "En desarrollo",
+      "responsables": ["Manu"],
+      "fechaObjetivo": "2026-06-15",
+      "objetivo": "Definir y publicar un horario semanal con bloques de apertura, desarrollo interno y tiempo personal del equipo.",
+      "resultadosEsperados": "Horario claro y publicado en todas las plataformas, con necesidades de personal mapeadas.",
+      "checkpoints": [
+        { "titulo": "Definir bloques (apertura / desarrollo / personal)", "hecho": false },
+        { "titulo": "Mapear disponibilidad y necesidades de personal", "hecho": false },
+        { "titulo": "Publicar horario en Google Business, redes y delivery", "hecho": false }
+      ],
+      "tareas": [
+        { "titulo": "Definir bloques de horario: apertura, desarrollo y tiempo personal", "hecho": false },
+        { "titulo": "Mapear disponibilidad del equipo y necesidades de personal", "hecho": false },
+        { "titulo": "Actualizar horario en Google Business, redes y plataformas de delivery", "hecho": false }
+      ],
+      "recursos": {
+        "tecnologico": ["Google Business Profile", "Plataformas de delivery"],
+        "skills": []
+      },
+      "diario": []
+    },
+    {
+      "id": "cocina-2",
+      "nombre": "Cocina 2.0",
+      "emoji": "🍴",
+      "estado": "En desarrollo",
+      "responsables": ["Chopo"],
+      "fechaObjetivo": "2026-06-30",
+      "objetivo": "Mejorar la cocina con nuevo equipamiento y distribución para soportar más volumen.",
+      "resultadosEsperados": "Cocina reorganizada con mesa nueva e impresora de etiquetas operativa.",
+      "checkpoints": [
+        { "titulo": "Definir distribución de la nueva mesa Vevor", "hecho": false },
+        { "titulo": "Equipamiento de etiquetado en marcha", "hecho": false }
+      ],
+      "tareas": [
+        { "titulo": "Definir distribución de nueva mesa Vevor", "hecho": false },
+        { "titulo": "Elegir y comprar impresora etiquetas para cocina", "hecho": false }
+      ],
+      "recursos": { "tecnologico": ["Impresora de etiquetas", "Mesa Vevor"], "skills": [] },
+      "diario": []
+    },
+    {
+      "id": "salsas-propias",
+      "nombre": "Desarrollo de Salsas Propias",
+      "emoji": "🥫",
+      "estado": "Completado",
+      "responsables": ["Manu", "León"],
+      "fechaObjetivo": "2026-06-14",
+      "objetivo": "Crear el sistema de salsas propias de Paletos: recetas, fichas técnicas, calculadora de producción y envasado con identidad.",
+      "resultadosEsperados": "Sistema de referencia ya cerrado: calculadora web, fichas y proceso de producción por lotes.",
+      "checkpoints": [
+        { "titulo": "Lista definitiva de salsas + recetas", "hecho": true },
+        { "titulo": "Fichas técnicas y calculadora de producción", "hecho": true },
+        { "titulo": "Proceso de producción por lotes y envasado", "hecho": true },
+        { "titulo": "Etiquetas diseñadas y encargadas", "hecho": true }
+      ],
+      "tareas": [
+        { "titulo": "Cerrar lista definitiva de salsas a producir", "hecho": true },
+        { "titulo": "Fichas técnicas de cada salsa", "hecho": true },
+        { "titulo": "Verificar y finalizar la calculadora de producción", "hecho": true },
+        { "titulo": "Establecer el proceso de producción por lotes", "hecho": true },
+        { "titulo": "Definir sistema de envasado y conservación", "hecho": true },
+        { "titulo": "Diseñar y encargar etiquetas", "hecho": true }
+      ],
+      "recursos": {
+        "tecnologico": ["GitHub Pages (calculadora web)", "JavaScript", "Notion (fichas)"],
+        "skills": [ { "skill": "frontend-design", "porque": "Calculadora web estilo salsas (patrón reutilizado)." } ]
+      },
+      "diario": [
+        { "fecha": "2026-05-29", "bullets": ["Sistema de salsas dado por cerrado; sirve de plantilla para postres."] }
+      ]
+    },
+    {
+      "id": "branding-paletos-2",
+      "nombre": "Branding & Set-up Local → Paletos 2.0",
+      "emoji": "🎨",
+      "estado": "En espera",
+      "responsables": [],
+      "fechaObjetivo": "2026-08-31",
+      "objetivo": "Renovar la identidad aplicada al local: rótulo, sala, menú y sistema de packaging.",
+      "resultadosEsperados": "Local y materiales alineados con la marca Paletos 2.0.",
+      "checkpoints": [
+        { "titulo": "Sistema de pegatinas / packaging definido", "hecho": false },
+        { "titulo": "Aplicación al local (rótulo, sala, menú)", "hecho": false }
+      ],
+      "tareas": [
+        { "titulo": "Sistema de pegatinas (packaging)", "hecho": false }
+      ],
+      "recursos": { "tecnologico": ["Imprenta", "Diseño gráfico"], "skills": [] },
+      "diario": []
+    },
+    {
+      "id": "desarrollo-postres",
+      "nombre": "Desarrollo de Postres",
+      "emoji": "🥮",
+      "estado": "En desarrollo",
+      "responsables": [],
+      "fechaObjetivo": null,
+      "objetivo": "Replicar el sistema de salsas en el laboratorio de tartas/postres: DB única de recetas e ingredientes, calculadora de producciones y registro de lotes.",
+      "resultadosEsperados": "Sistema de postres operativo con costes por unidad y producciones registradas.",
+      "checkpoints": [
+        { "titulo": "Recetas e ingredientes unificados en una sola DB", "hecho": true },
+        { "titulo": "Calculadora web de producciones + vistas por tipo", "hecho": true },
+        { "titulo": "Inventario de repostería con coste €/unidad", "hecho": false },
+        { "titulo": "Producciones con LOTE ID y merma real", "hecho": false }
+      ],
+      "tareas": [
+        { "titulo": "Ingredientes — DB única sobre INVENTARIO (coste €/unidad)", "hecho": true },
+        { "titulo": "Recetas — Unificadas en una sola DB (Tipo Salsa/Postre)", "hecho": true },
+        { "titulo": "Calculadora web de producciones (GitHub Pages, estilo salsas)", "hecho": true },
+        { "titulo": "Vistas — por Tipo (Salsa/Postre) en RECETAS e INGREDIENTES", "hecho": true },
+        { "titulo": "Migrar el cuerpo de las recetas viejas a las nuevas y archivar obsoletas", "hecho": true },
+        { "titulo": "Inventario — Rellenar CANTIDAD PAQUETE de repostería (coste €/unidad)", "hecho": false },
+        { "titulo": "Producciones — COSTE ESTIMADO + MERMA REAL · falta LOTE ID (manual UI)", "hecho": false }
+      ],
+      "recursos": {
+        "tecnologico": ["Notion (DBs)", "GitHub Pages", "JavaScript"],
+        "skills": [ { "skill": "dev-journal", "porque": "Registrar el avance del laboratorio de postres." } ]
+      },
+      "diario": [
+        { "fecha": "2026-06-20", "bullets": ["Tareas asociadas revisadas; pendiente inventario de repostería."] }
+      ]
+    },
+    {
+      "id": "inventario-stock",
+      "nombre": "Sistema de Inventario & Control Stock",
+      "emoji": "📦",
+      "estado": "En espera",
+      "responsables": [],
+      "fechaObjetivo": null,
+      "objetivo": "Documentar capacidad y costes para un control de stock fiable.",
+      "resultadosEsperados": "Inventario con costes calculados y capacidad máxima documentada.",
+      "checkpoints": [
+        { "titulo": "Capacidad máxima documentada (patatas, carne, entrantes)", "hecho": false },
+        { "titulo": "Campos de coste revisados y explicados", "hecho": false }
+      ],
+      "tareas": [
+        { "titulo": "Documentar capacidad máxima actual de patatas, carne y entrantes", "hecho": false },
+        { "titulo": "Revisar campos calculados de costes y añadir explicación como comentario", "hecho": false }
+      ],
+      "recursos": { "tecnologico": ["Notion"], "skills": [] },
+      "diario": []
+    },
+    {
+      "id": "socios-gamificacion",
+      "nombre": "Programa de Socios y Gamificación",
+      "emoji": "🎮",
+      "estado": "En desarrollo",
+      "responsables": ["León"],
+      "fechaObjetivo": null,
+      "objetivo": "Diseñar el programa de socios de Paletos con mecánicas de gamificación (Tarjeta de Oro, recompensas).",
+      "resultadosEsperados": "Programa definido y conectado al arcade y al canal propio.",
+      "checkpoints": [],
+      "tareas": [],
+      "recursos": { "tecnologico": [], "skills": [] },
+      "diario": []
+    },
+    {
+      "id": "boom-ready",
+      "nombre": "Sistema Boom-Ready (Boom-Bastic)",
+      "emoji": "🚀",
+      "estado": "En espera",
+      "responsables": ["Manu"],
+      "fechaObjetivo": null,
+      "objetivo": "Sistema para estar listos ante picos de demanda (\"boom\").",
+      "resultadosEsperados": "Protocolo operativo para absorber picos sin caídas de servicio.",
+      "checkpoints": [],
+      "tareas": [],
+      "recursos": { "tecnologico": [], "skills": [] },
+      "diario": []
+    },
+    {
+      "id": "cocina-3",
+      "nombre": "Cocina 3.0",
+      "emoji": "🍴",
+      "estado": "En espera",
+      "responsables": [],
+      "fechaObjetivo": null,
+      "objetivo": "Siguiente iteración de cocina (suelo, panel inox, enchufes).",
+      "resultadosEsperados": "Cocina ampliada y preparada para el nuevo volumen.",
+      "checkpoints": [],
+      "tareas": [],
+      "recursos": { "tecnologico": [], "skills": [] },
+      "diario": []
+    }
+  ]
+}
