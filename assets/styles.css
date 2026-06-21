@@ -99,15 +99,18 @@ main{padding:clamp(1.2rem,3vw,2.4rem)}
 .scatter-section{margin-bottom:2.6rem}
 .scatter-wrap{overflow-x:auto;overflow-y:hidden;padding-bottom:.5rem}
 .scatter{
-  position:relative;min-width:780px;height:430px;
+  position:relative;min-width:780px;height:440px;
   background:
     linear-gradient(var(--ink-2),var(--ink-2)) padding-box,
     repeating-linear-gradient(90deg,transparent,transparent 79px,var(--line) 79px,var(--line) 80px);
   border:1.5px solid var(--line-strong);border-radius:10px;
   box-shadow:var(--shadow), inset 0 0 60px rgba(0,0,0,.4);
 }
-.axis{position:absolute;left:0;right:0;bottom:46px;height:2px;background:var(--line-strong)}
-.tick{position:absolute;bottom:0;transform:translateX(-50%);text-align:center}
+/* capas: stems/dots por DETRÁS, tarjetas por DELANTE */
+.stem-layer{position:absolute;inset:0;z-index:1;pointer-events:none}
+.card-layer{position:absolute;inset:0;z-index:3}
+.axis{position:absolute;left:0;right:0;bottom:46px;height:2px;background:var(--line-strong);z-index:0}
+.tick{position:absolute;bottom:0;transform:translateX(-50%);text-align:center;z-index:0}
 .tick .tline{width:1px;height:14px;background:var(--line-strong);margin:0 auto}
 .tick .lbl{font-family:var(--font-display);font-size:.72rem;color:var(--muted);
   letter-spacing:.1em;text-transform:uppercase;margin-top:.25rem;white-space:nowrap}
@@ -115,15 +118,13 @@ main{padding:clamp(1.2rem,3vw,2.4rem)}
 .today-line::after{content:"HOY";position:absolute;top:-1.1rem;left:50%;transform:translateX(-50%);
   font-family:var(--font-display);font-size:.62rem;color:var(--yellow);letter-spacing:.12em}
 
-/* scatter node */
-.node{
-  position:absolute;width:188px;margin-left:-94px;
-  animation:pop .5s cubic-bezier(.2,1.2,.4,1) both;
-}
+/* scatter node — stems y dots viven en .stem-layer (z detrás) */
 @keyframes pop{from{opacity:0;transform:translateY(14px) scale(.9)}}
-.node .stem{position:absolute;left:50%;width:2px;background:var(--line-strong)}
-.node .dot{position:absolute;left:50%;transform:translate(-50%,-50%);
-  width:13px;height:13px;border-radius:50%;border:2px solid var(--ink);box-shadow:0 0 0 2px currentColor}
+.node-stem{position:absolute;width:2px;transform:translateX(-1px);background:var(--line-strong)}
+.node-dot{position:absolute;width:14px;height:14px;border-radius:50%;
+  border:2px solid var(--ink);box-shadow:0 0 0 2px currentColor;transform:translate(-50%,-50%)}
+.card-layer .pcard{position:absolute;width:188px;margin-left:-94px;
+  animation:pop .5s cubic-bezier(.2,1.2,.4,1) both}
 .pcard{
   position:relative;cursor:pointer;background:var(--ink-3);
   border:1.5px solid var(--line-strong);border-left:5px solid var(--red);
@@ -171,7 +172,8 @@ main{padding:clamp(1.2rem,3vw,2.4rem)}
   font-size:clamp(1.3rem,3vw,2rem);line-height:.98;margin:.3rem 0 .55rem}
 .m-tags{display:flex;gap:.5rem;flex-wrap:wrap}
 .tag{font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  padding:.25rem .55rem;border-radius:20px;border:1px solid var(--line-strong);color:var(--muted)}
+  padding:.34rem .7rem;border-radius:20px;border:1px solid var(--line-strong);color:var(--muted);
+  display:inline-flex;align-items:center;gap:.35rem;line-height:1}
 .tag.estado-desarrollo{color:var(--red-hot);border-color:var(--red)}
 .tag.estado-completado{color:var(--ok);border-color:var(--ok)}
 .tag.estado-espera{color:var(--muted)}
@@ -225,11 +227,12 @@ main{padding:clamp(1.2rem,3vw,2.4rem)}
 .empty{color:var(--muted);font-size:.85rem;font-style:italic}
 
 /* progress ring (canvas-less, conic) */
-.ring{width:84px;height:84px;border-radius:50%;display:grid;place-items:center;
+.ring{width:94px;height:94px;border-radius:50%;display:grid;place-items:center;flex:none;
   background:conic-gradient(var(--yellow) calc(var(--p)*1%), rgba(0,0,0,.45) 0);position:relative}
-.ring::before{content:"";position:absolute;inset:8px;border-radius:50%;background:var(--ink-2)}
-.ring b{position:relative;font-family:var(--font-display);font-size:1.25rem}
-.ring small{position:relative;display:block;text-align:center;font-size:.55rem;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.ring::before{content:"";position:absolute;inset:9px;border-radius:50%;background:var(--ink-2)}
+.ring > div{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.ring b{font-family:var(--font-display);font-size:1.35rem;line-height:1}
+.ring small{display:block;text-align:center;font-size:.5rem;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-top:4px}
 
 /* ---------- FOOTER ---------- */
 .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;

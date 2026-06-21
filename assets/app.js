@@ -75,46 +75,65 @@ function renderScatter(){
 
   const b = timelineBounds(dated);
 
-  // axis + ticks
+  // capas: stems detrás, tarjetas delante
+  const stemLayer = el("div","stem-layer");
+  const cardLayer = el("div","card-layer");
+
+  // axis + ticks (al fondo)
   const axis = el("div","axis"); scatter.appendChild(axis);
   monthTicks(b).forEach(tk=>{
     const tick = el("div","tick"); tick.style.left = posPct(tk.t,b)+"%";
     tick.innerHTML = `<div class="tline"></div><div class="lbl">${tk.label}</div>`;
     scatter.appendChild(tick);
   });
-  // today line
-  const today = el("div","today-line");
-  today.style.left = posPct(TODAY.getTime(),b)+"%"; today.style.height="324px";
-  scatter.appendChild(today);
+  scatter.appendChild(stemLayer);
+  scatter.appendChild(cardLayer);
 
-  // nodes (stagger vertical para evitar solapes)
-  const levels = [18, 96, 174]; // top offsets
+  // tarjetas escalonadas en 3 niveles para reducir solapes
+  const levels = [16, 92, 168];
+  const placed = [];
   dated.forEach((p,i)=>{
     const x = posPct(parseDate(p.fechaObjetivo).getTime(), b);
-    const top = levels[i % levels.length];
-    const node = el("div","node");
-    node.style.left = x+"%"; node.style.top = top+"px";
-    const stemH = (384 - 46) - (top+150);
     const cls = ESTADO_CLASS[p.estado]||"espera";
     const pr = progress(p);
     const al = alertsFor(p);
-
-    node.innerHTML = `
-      <div class="stem" style="top:150px;height:${Math.max(stemH,18)}px"></div>
-      <div class="dot" style="top:${150+Math.max(stemH,18)}px;color:${ESTADO_COLOR[p.estado]}"></div>
-      <div class="pcard estado-${cls} ${al.nivel==='rojo'?'alert':''}" data-id="${p.id}">
-        ${al.nivel==='rojo'?'<span class="flag">!</span>':''}
-        <div class="pc-top"><span class="emoji">${p.emoji||"📌"}</span>
-          <span class="pc-name">${p.nombre}</span></div>
-        <div class="pc-meta"><span>${p.estado}</span><span>🎯 ${fmtDate(parseDate(p.fechaObjetivo))}</span></div>
-        <div class="bar"><i style="width:${pr.pct}%"></i></div>
-        <div class="bar-row"><span>${pr.base==='checkpoints'?'checkpoints':'tareas'}</span>
-          <b>${pr.done}/${pr.total} · ${pr.pct}%</b></div>
-      </div>`;
-    scatter.appendChild(node);
+    const card = el("div",`pcard estado-${cls} ${al.nivel==='rojo'?'alert':''}`);
+    card.dataset.id = p.id;
+    card.style.left = x+"%"; card.style.top = levels[i % levels.length]+"px";
+    card.innerHTML = `
+      ${al.nivel==='rojo'?'<span class="flag">!</span>':''}
+      <div class="pc-top"><span class="emoji">${p.emoji||"📌"}</span>
+        <span class="pc-name">${p.nombre}</span></div>
+      <div class="pc-meta"><span>${p.estado}</span><span>🎯 ${fmtDate(parseDate(p.fechaObjetivo))}</span></div>
+      <div class="bar"><i style="width:${pr.pct}%"></i></div>
+      <div class="bar-row"><span>${pr.base==='checkpoints'?'checkpoints':'tareas'}</span>
+        <b>${pr.done}/${pr.total} · ${pr.pct}%</b></div>`;
+    cardLayer.appendChild(card);
+    placed.push({ card, x, color: ESTADO_COLOR[p.estado] });
   });
 
-  scatter.querySelectorAll(".pcard").forEach(c=>c.addEventListener("click",()=>openModal(c.dataset.id)));
+  // medir altura real de cada tarjeta y trazar el stem desde su base hasta el eje
+  const axisY = scatter.clientHeight - 46;
+  placed.forEach(({card,x,color})=>{
+    const cardBottom = card.offsetTop + card.offsetHeight;
+    const stem = el("div","node-stem");
+    stem.style.left = x+"%";
+    stem.style.top = cardBottom+"px";
+    stem.style.height = Math.max(axisY - cardBottom, 6)+"px";
+    stemLayer.appendChild(stem);
+    const dot = el("div","node-dot");
+    dot.style.left = x+"%"; dot.style.top = axisY+"px"; dot.style.color = color;
+    stemLayer.appendChild(dot);
+  });
+
+  // línea de HOY (en la capa de fondo, por detrás de las tarjetas)
+  const today = el("div","today-line");
+  today.style.left = posPct(TODAY.getTime(),b)+"%";
+  today.style.bottom = "46px";
+  today.style.height = (axisY - 12)+"px";
+  stemLayer.appendChild(today);
+
+  cardLayer.querySelectorAll(".pcard").forEach(c=>c.addEventListener("click",()=>openModal(c.dataset.id)));
 }
 
 /* ---------- render: sin fecha ---------- */
