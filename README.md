@@ -1,40 +1,41 @@
-# Roadmap Super Scatter
+# Tweakeo · Roadmaps
 
-Dashboard visual de los **proyectos de mejora** de **Chamberí Brothers / Paletos**.
-Vista principal tipo *timeline-scatter* por **Fecha Objetivo**, con barra de progreso
-por **checkpoints** y detalle por proyecto (objetivo, checkpoints, tareas, recursos y
-diario de desarrollo).
+Hub multi-proyecto de hojas de ruta de Tweakeo. Sitio **estático** servido por **Cloudflare Pages**.
 
-→ Concepto completo y decisiones: **[`concepto.md`](concepto.md)** (documento vivo).
+🌐 **Producción:** https://roadmap.tweakeo.com  ·  (alias: https://roadmap-7je.pages.dev)
 
-## Estructura
+## Estructura del repo
+
 ```
-index.html            · dashboard (una sola página)
-assets/styles.css     · estética arcade/scoreboard Paletos
-assets/app.js         · render del scatter + detalle + alertas + botón Actualizar
-data/projects.json    · datos SEED (se sustituirá por el proxy/Notion)
-concepto.md           · documento vivo del proyecto
-```
-
-## Desarrollo local
-Sirve la carpeta con cualquier servidor estático (necesario por el `fetch` del JSON):
-```bash
-python3 -m http.server 8080
-# abre http://localhost:8080
+/index.html        → PANEL selector (hub). Lista los proyectos y enlaza a cada uno.
+/hosteleria/       → Roadmap de Hostelería (dashboard "Super Scatter")
+    index.html
+    assets/        → app.js, styles.css
+    data/projects.json
+    concepto.md    → documento vivo del proyecto de hostelería
 ```
 
-## Publicar en GitHub Pages
-Settings → Pages → *Deploy from a branch* → `main` / `root`. La web queda en
-`https://tweakeo.github.io/Roadmap-Super-Scatter/`.
+Cada proyecto = una carpeta bajo la raíz. Para añadir uno nuevo (p. ej. `invertir-a-largo-plazo`):
 
-## Datos (estado actual y plan)
-- **v1 (actual):** lee `data/projects.json` (datos *seed* basados en Notion).
-- **Producción:** un **proxy serverless** (Cloudflare Worker) leerá Notion con el token
-  guardado del lado servidor y servirá el mismo formato JSON. El botón **"Actualizar"**
-  refresca en vivo. El token **nunca** llega al navegador.
+1. Crea la carpeta `/invertir-a-largo-plazo/` con su propio `index.html`.
+2. Añade una card en `/index.html` (el panel) que enlace a `/invertir-a-largo-plazo/`.
 
-Para conectar el Worker, basta cambiar `DATA_URL` en `assets/app.js`.
+No hace falta tocar DNS ni Cloudflare para una sección nueva: el subdominio ya cubre todas las rutas.
 
-## Identidad
-Rojo `#D72638` · rosa `#F0DADA` · papel/negro/amarillo · display *Anton* (placeholder de
-Druk Wide Bold) + cuerpo *Archivo*. Tono Paletos: *"Smash… or nah?"*
+## Despliegue (Cloudflare Pages)
+
+- Proyecto Cloudflare Pages: **roadmap**, conectado a este repo de GitHub.
+- **Autodeploy:** cada push a la rama **`main`** publica en producción automáticamente. Otras ramas generan *preview deploys*.
+- Build: ninguno (Framework preset = None, sin build command, output directory = raíz). Es HTML/CSS/JS plano.
+- Dominio `roadmap.tweakeo.com`: registro **CNAME en DonDominio** → `roadmap-7je.pages.dev` (el DNS de tweakeo.com se gestiona en DonDominio, no en Hetzner ni Webempresa).
+
+## Notas de colaboración (varios agentes / varios PCs)
+
+Este repo lo tocan varias manos. Para no romper nada:
+
+- **`/hosteleria/`** y futuras carpetas de proyecto = desarrollo del roadmap (su contenido/app). Zona del agente de desarrollo.
+- **`/index.html`** (panel) + config de Pages/DNS = hub + hosting.
+- ⚠️ **Todo push a `main` se publica solo** en https://roadmap.tweakeo.com . Para trabajo en curso usa una rama (genera un preview deploy) y mergea a `main` cuando esté listo.
+- Nada de `force-push`, rename del repo ni reescritura de historial. Commits pequeños y atómicos.
+
+> **Historial:** el 2026-06-21 este repo se renombró `Roadmap-Super-Scatter` → `roadmap`, pasó a **privado** y los archivos originales de la raíz se movieron a `/hosteleria/`. Si tienes un clon antiguo, actualiza el `remote` (nuevo nombre, ya privado) y haz `pull` de la nueva estructura antes de seguir.
